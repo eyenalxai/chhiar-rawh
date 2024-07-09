@@ -1,42 +1,8 @@
-import { env } from "@/lib/env"
 import { accounts, db, users } from "@/lib/schema"
-import type { JWT } from "@auth/core/jwt"
+import { refreshAccessToken, tokenHasExpiredWithEpoch } from "@/lib/token"
+import type { AuthToken } from "@/types/token"
 import { eq } from "drizzle-orm"
 import NextAuth from "next-auth"
-
-interface RedditAccessTokenResponse {
-	access_token: string
-	expires_in: number
-}
-
-async function refreshAccessToken(refreshToken: string) {
-	return fetch("https://www.reddit.com/api/v1/access_token", {
-		method: "POST",
-		headers: new Headers({
-			Authorization: `Basic ${btoa(`${env.AUTH_REDDIT_ID}:${env.AUTH_REDDIT_SECRET}`)}`,
-			"Content-Type": "application/x-www-form-urlencoded"
-		}),
-		body: new URLSearchParams({
-			grant_type: "refresh_token",
-			refresh_token: refreshToken
-		})
-	})
-		.then((response) => response.json() as unknown as RedditAccessTokenResponse)
-		.catch((error) => {
-			throw new Error(error)
-		})
-}
-
-type AuthToken = {
-	userId: string
-	username: string
-	accessToken: string
-	accessTokenExpiresIn: number
-} & JWT
-
-const tokenHasExpiredWithEpoch = (expiresInEpoch: number) => {
-	return Date.now() > expiresInEpoch * 1000
-}
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
 	providers: [

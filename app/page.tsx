@@ -5,7 +5,13 @@ export default async function Home() {
 
 	return (
 		<div>
-			{JSON.stringify(session)}
+			{session && (
+				<div>
+					<p>Signed in as {session.username} </p>
+					<p>Access Token: {session.accessToken}</p>
+					<p>Access Token Expires At: {session.accessTokenExpiresAt}</p>
+				</div>
+			)}
 			<form
 				action={async () => {
 					"use server"

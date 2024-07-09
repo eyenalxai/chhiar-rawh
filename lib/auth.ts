@@ -1,4 +1,3 @@
-import { accounts, db, users } from "@/lib/schema"
 import NextAuth from "next-auth"
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
@@ -18,48 +17,24 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 	],
 	callbacks: {
 		async jwt({ user, account, token }) {
+			console.log("jwt was called")
+			console.log("user", user)
+			console.log("account", account)
+
 			if (user && account) {
-				const [userModel] = await db
-					.insert(users)
-					.values({
-						username: user.name as string
-					})
-
-					.onConflictDoUpdate({
-						target: users.username,
-						set: {
-							username: user.name as string
-						}
-					})
-					.returning()
-
-				const [accountModel] = await db
-					.insert(accounts)
-					.values({
-						userId: userModel.id,
-						refresh_token: account.refresh_token,
-						access_token: account.access_token,
-						expires_at: account.expires_at
-					})
-					.onConflictDoUpdate({
-						target: accounts.userId,
-						set: {
-							refresh_token: account.refresh_token,
-							access_token: account.access_token,
-							expires_at: account.expires_at
-						}
-					})
-					.returning()
+				return {
+					username: user.name as string,
+					accessToken: account.access_token as string,
+					accessTokenExpiresAt: account.expires_at as number,
+					...token
+				}
 			}
-			return token
+
+			return { ...token }
 		},
 
 		async session({ session, token }) {
-			console.log("session", session)
-			return {
-				...session,
-				id: token.id
-			}
+			return { ...session, ...token }
 		}
 	}
 })

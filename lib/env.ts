@@ -3,13 +3,13 @@ import { z } from "zod"
 
 export const env = createEnv({
 	server: {
-		NEXTAUTH_URL: z.string().url(),
-		REDDIT_CLIENT_ID: z.string().min(5),
-		REDDIT_CLIENT_SECRET: z.string().min(5)
+		AUTH_SECRET: z.string().min(16),
+		AUTH_REDDIT_ID: z.string().min(5),
+		AUTH_REDDIT_SECRET: z.string().min(5)
 	},
 	runtimeEnv: {
-		NEXTAUTH_URL: process.env.NEXTAUTH_URL,
-		REDDIT_CLIENT_ID: process.env.REDDIT_CLIENT_ID,
-		REDDIT_CLIENT_SECRET: process.env.REDDIT_CLIENT_SECRET
+		AUTH_SECRET: process.env.AUTH_SECRET,
+		AUTH_REDDIT_ID: process.env.AUTH_REDDIT_ID,
+		AUTH_REDDIT_SECRET: process.env.AUTH_REDDIT_SECRET
 	}
 })

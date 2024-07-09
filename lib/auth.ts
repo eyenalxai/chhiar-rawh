@@ -21,8 +21,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 	],
 	callbacks: {
 		async jwt({ user, account, token }) {
-			console.log("jwt was called")
-
 			const authToken = token as AuthToken
 
 			if (user && account) {
@@ -66,7 +64,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 			}
 
 			if (tokenHasExpiredWithEpoch(authToken.accessTokenExpiresIn)) {
-				console.log("token has expired")
 				const [accountModel] = await db.select().from(accounts).where(eq(accounts.userId, authToken.userId))
 				const refreshedTokenResponse = await refreshAccessToken(accountModel.refresh_token)
 
@@ -90,7 +87,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 		},
 
 		async session({ session, token }) {
-			console.log("session was called")
 			return { ...session, ...token }
 		}
 	}

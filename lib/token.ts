@@ -1,7 +1,7 @@
 import { env } from "@/lib/env"
 
-export const tokenHasExpiredWithEpoch = (expiresInEpoch: number) => {
-	return Date.now() > expiresInEpoch * 1000
+export const isTokenExpired = (expiredAt: number) => {
+	return expiredAt < Math.floor(Date.now() / 1000)
 }
 
 type RedditAccessTokenResponse = {

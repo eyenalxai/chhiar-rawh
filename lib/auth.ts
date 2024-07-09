@@ -1,5 +1,5 @@
 import { accounts, db, users } from "@/lib/schema"
-import { refreshAccessToken, tokenHasExpiredWithEpoch } from "@/lib/token"
+import { isTokenExpired, refreshAccessToken } from "@/lib/token"
 import type { AuthToken } from "@/types/token"
 import { eq } from "drizzle-orm"
 import NextAuth from "next-auth"
@@ -43,14 +43,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 						userId: userModel.id,
 						refresh_token: account.refresh_token as string,
 						access_token: account.access_token as string,
-						expires_in: account.expires_in as number
+						expires_at: account.expires_at as number
 					})
 					.onConflictDoUpdate({
 						target: accounts.userId,
 						set: {
 							refresh_token: account.refresh_token,
 							access_token: account.access_token,
-							expires_in: account.expires_in
+							expires_at: account.expires_at
 						}
 					})
 					.returning()
@@ -59,11 +59,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 					userId: userModel.id,
 					username: user.name as string,
 					accessToken: account.access_token as string,
-					accessTokenExpiresIn: account.expires_in as number
+					accessTokenExpiresAt: account.expires_at as number
 				} satisfies AuthToken
 			}
 
-			if (tokenHasExpiredWithEpoch(authToken.accessTokenExpiresIn)) {
+			if (isTokenExpired(authToken.accessTokenExpiresAt)) {
+				console.log("Refreshing access token")
 				const [accountModel] = await db.select().from(accounts).where(eq(accounts.userId, authToken.userId))
 				const refreshedTokenResponse = await refreshAccessToken(accountModel.refresh_token)
 
@@ -71,7 +72,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 					.update(accounts)
 					.set({
 						access_token: refreshedTokenResponse.access_token,
-						expires_in: refreshedTokenResponse.expires_in
+						expires_at: refreshedTokenResponse.expires_in + Math.floor(Date.now() / 1000)
 					})
 					.where(eq(accounts.userId, authToken.userId))
 					.returning()
@@ -79,7 +80,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 				return {
 					...authToken,
 					accessToken: updatedAccountModel.access_token,
-					accessTokenExpiresIn: updatedAccountModel.expires_in
+					accessTokenExpiresAt: updatedAccountModel.expires_at
 				} satisfies AuthToken
 			}
 

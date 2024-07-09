@@ -1,0 +1,1 @@
+ALTER TABLE "account" RENAME COLUMN "expires_in" TO "expires_at";

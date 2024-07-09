@@ -4,5 +4,5 @@ export type AuthToken = {
 	userId: string
 	username: string
 	accessToken: string
-	accessTokenExpiresIn: number
+	accessTokenExpiresAt: number
 } & JWT

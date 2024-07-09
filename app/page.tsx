@@ -9,7 +9,7 @@ export default async function Home() {
 				<div>
 					<p>Signed in as {session.username} </p>
 					<p>Access Token: {session.accessToken}</p>
-					<p>Access Token Expires At: {session.accessTokenExpiresIn}</p>
+					<p>Access Token Expires At: {session.accessTokenExpiresAt}</p>
 				</div>
 			)}
 			<form

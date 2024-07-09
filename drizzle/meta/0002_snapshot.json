@@ -1,6 +1,6 @@
 {
-  "id": "15604afe-546a-49c3-a438-f835097c0579",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "40bfd8aa-bb2a-4ec0-9c04-01bc7ebaa578",
+  "prevId": "c690101c-3073-4073-b8a1-b1529d4830ea",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -18,19 +18,19 @@
           "name": "refresh_token",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "access_token": {
           "name": "access_token",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
-        "expires_at": {
-          "name": "expires_at",
+        "expires_in": {
+          "name": "expires_in",
           "type": "integer",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         }
       },
       "indexes": {},

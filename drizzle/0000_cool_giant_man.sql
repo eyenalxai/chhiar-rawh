@@ -2,7 +2,8 @@ CREATE TABLE IF NOT EXISTS "account" (
 	"userId" text NOT NULL,
 	"refresh_token" text,
 	"access_token" text,
-	"expires_at" integer
+	"expires_at" integer,
+	CONSTRAINT "account_userId_unique" UNIQUE("userId")
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "session" (
@@ -13,7 +14,8 @@ CREATE TABLE IF NOT EXISTS "session" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "user" (
 	"id" text PRIMARY KEY NOT NULL,
-	"name" text
+	"name" text NOT NULL,
+	CONSTRAINT "user_name_unique" UNIQUE("name")
 );
 --> statement-breakpoint
 DO $$ BEGIN

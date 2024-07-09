@@ -19,24 +19,21 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 	callbacks: {
 		async jwt({ user, account, token }) {
 			if (user && account) {
-				console.log("user", user)
-				console.log("account", account)
 				const [userModel] = await db
 					.insert(users)
 					.values({
 						username: user.name as string
 					})
-					.returning()
+
 					.onConflictDoUpdate({
 						target: users.username,
 						set: {
 							username: user.name as string
 						}
 					})
+					.returning()
 
-				console.log("userModel", userModel)
-
-				await db
+				const [accountModel] = await db
 					.insert(accounts)
 					.values({
 						userId: userModel.id,
@@ -52,6 +49,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 							expires_at: account.expires_at
 						}
 					})
+					.returning()
 			}
 			return token
 		},

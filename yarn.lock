@@ -751,6 +751,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@t3-oss/env-core@npm:^0.8.0":
+  version: 0.8.0
+  resolution: "@t3-oss/env-core@npm:0.8.0"
+  peerDependencies:
+    typescript: ">=5.0.0"
+    zod: ^3.0.0
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 10c0/3fde267ad13c8e993d61dad8023dcb245996319dbed37fa133c8dea550597e843b7a67f1ed2d9cfe1f8e3d973efed39de1d88cdc5042f442f7d1578cf7cb30e1
+  languageName: node
+  linkType: hard
+
 "@ts-morph/common@npm:~0.19.0":
   version: 0.19.0
   resolution: "@ts-morph/common@npm:0.19.0"
@@ -3739,6 +3752,7 @@ __metadata:
   resolution: "nextjs-template@workspace:."
   dependencies:
     "@biomejs/biome": "npm:1.8.3"
+    "@t3-oss/env-core": "npm:^0.8.0"
     "@types/node": "npm:20.14.10"
     "@types/react": "npm:18.3.3"
     "@types/react-dom": "npm:18.3.0"
@@ -3759,6 +3773,7 @@ __metadata:
     tailwindcss: "npm:3.4.4"
     tailwindcss-animate: "npm:^1.0.7"
     typescript: "npm:5.5.3"
+    zod: "npm:^3.23.8"
   languageName: unknown
   linkType: soft
 
@@ -5469,5 +5484,12 @@ __metadata:
   version: 3.22.4
   resolution: "zod@npm:3.22.4"
   checksum: 10c0/7578ab283dac0eee66a0ad0fc4a7f28c43e6745aadb3a529f59a4b851aa10872b3890398b3160f257f4b6817b4ce643debdda4fb21a2c040adda7862cab0a587
+  languageName: node
+  linkType: hard
+
+"zod@npm:^3.23.8":
+  version: 3.23.8
+  resolution: "zod@npm:3.23.8"
+  checksum: 10c0/8f14c87d6b1b53c944c25ce7a28616896319d95bc46a9660fe441adc0ed0a81253b02b5abdaeffedbeb23bdd25a0bf1c29d2c12dd919aef6447652dd295e3e69
   languageName: node
   linkType: hard

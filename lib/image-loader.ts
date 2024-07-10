@@ -1,5 +1,5 @@
 import { env } from "@/lib/env"
-import pb, { GravityType, ResizeType } from "@bitpatty/imgproxy-url-builder"
+import { generateImageUrl } from "@imgproxy/imgproxy-node"
 
 type ImageLoaderProps = {
 	src: string
@@ -8,33 +8,29 @@ type ImageLoaderProps = {
 }
 
 export default function imgProxyLoader({ src, width, quality }: ImageLoaderProps): string {
-	const imageProxyBaseUrl = "http://192.168.1.135:8080"
-	console.log("src", src)
+	const url = generateImageUrl({
+		endpoint: "http://192.168.1.135:8080",
+		url: src,
+		options: {
+			resizing_type: "fill",
+			width: width,
+			gravity: {
+				type: "ce"
+			},
+			enlarge: 1,
+			format: "webp"
+		},
+		salt: env.IMGPROXY_SALT,
+		key: env.IMGPROXY_KEY
+	})
+
 	console.log("width", width)
 	console.log("quality", quality)
-	console.log("---")
-
-	console.log("Debug before .build call:")
 	console.log("src:", src)
-	console.log("imageProxyBaseUrl:", imageProxyBaseUrl)
 	console.log("signature key:", env.IMGPROXY_KEY)
 	console.log("signature salt:", env.IMGPROXY_SALT)
-	return pb()
-		.gravity({
-			type: GravityType.CENTER
-		})
-		.quality(quality || 80)
-		.resize({
-			type: ResizeType.FILL,
-			width: width
-		})
-		.format("webp")
-		.build({
-			path: src,
-			baseUrl: imageProxyBaseUrl,
-			signature: {
-				key: env.IMGPROXY_KEY,
-				salt: env.IMGPROXY_SALT
-			}
-		})
+	console.log("imgproxyUrl", url)
+	console.log("---")
+
+	return url
 }

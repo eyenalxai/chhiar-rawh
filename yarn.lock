@@ -530,13 +530,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@bitpatty/imgproxy-url-builder@npm:^1.7.0":
-  version: 1.7.0
-  resolution: "@bitpatty/imgproxy-url-builder@npm:1.7.0"
-  checksum: 10c0/e30494a392096500666d1c11ae29a1d10a56272fdab303d022016476b9bdb35f33568d25093b7dea33fb8b89f409d92133cdc7f48f968fa3dc1b60702a5c2d9c
-  languageName: node
-  linkType: hard
-
 "@esbuild-kit/core-utils@npm:^3.3.2":
   version: 3.3.2
   resolution: "@esbuild-kit/core-utils@npm:3.3.2"
@@ -936,6 +929,22 @@ __metadata:
   version: 2.0.2
   resolution: "@humanwhocodes/object-schema@npm:2.0.2"
   checksum: 10c0/6fd83dc320231d71c4541d0244051df61f301817e9f9da9fd4cb7e44ec8aacbde5958c1665b0c419401ab935114fdf532a6ad5d4e7294b1af2f347dd91a6983f
+  languageName: node
+  linkType: hard
+
+"@imgproxy/imgproxy-js-core@npm:^1.0.8":
+  version: 1.0.8
+  resolution: "@imgproxy/imgproxy-js-core@npm:1.0.8"
+  checksum: 10c0/336343a666ea72c1a7115dfcb86d68609a21fb47a4dadfb664cd2ebf74726dd8069a85b0a38a6c79e26dd12b3bdc3c1d4cb1be35581316020c4c14c7aaaf27e0
+  languageName: node
+  linkType: hard
+
+"@imgproxy/imgproxy-node@npm:^1.0.6":
+  version: 1.0.6
+  resolution: "@imgproxy/imgproxy-node@npm:1.0.6"
+  dependencies:
+    "@imgproxy/imgproxy-js-core": "npm:^1.0.8"
+  checksum: 10c0/5c169315958c5069a367de62ccbcb97248a02cebf0f9cc95725be9a6f183ca8022e52d460595bb5cc9a27ae0029ddf77bf3e0333f474952b49babbba599dd0b2
   languageName: node
   linkType: hard
 
@@ -4551,7 +4560,7 @@ __metadata:
   dependencies:
     "@auth/drizzle-adapter": "npm:^1.4.1"
     "@biomejs/biome": "npm:1.8.3"
-    "@bitpatty/imgproxy-url-builder": "npm:^1.7.0"
+    "@imgproxy/imgproxy-node": "npm:^1.0.6"
     "@radix-ui/react-slot": "npm:^1.1.0"
     "@t3-oss/env-core": "npm:^0.8.0"
     "@tailwindcss/typography": "npm:^0.5.13"

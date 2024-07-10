@@ -2,6 +2,7 @@
 
 import { LinkPreviewCard } from "@/components/post/link-preview-card"
 import { Skeleton } from "@/components/ui/skeleton"
+import { URL_METADATA_QUERY_KEY } from "@/lib/query/keys"
 import type { urlMetadatas } from "@/lib/schema"
 import { cn } from "@/lib/utils"
 import type { UrlMetadataResponse } from "@/types/url-metadata"
@@ -14,7 +15,7 @@ type ExternalLinkPreviewProps = {
 
 export const ExternalLinkPreview = ({ url, title }: ExternalLinkPreviewProps) => {
 	const { data, isLoading, error } = useQuery({
-		queryKey: ["url-metadata", { url }],
+		queryKey: [URL_METADATA_QUERY_KEY, { url }],
 		queryFn: async () =>
 			await fetch(`/api/url-metadata?url=${url}`).then(async (res) => {
 				if (!res.ok) throw new Error(`Failed to fetch metadata. Status: ${res.status}`)

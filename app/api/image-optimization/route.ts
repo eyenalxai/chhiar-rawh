@@ -1,8 +1,13 @@
+import { auth } from "@/lib/auth"
 import { env } from "@/lib/env"
 import { generateImageUrl } from "@imgproxy/imgproxy-node"
 import { NextResponse } from "next/server"
 
 export const GET = async (request: Request) => {
+	const session = await auth()
+
+	if (!session) return new NextResponse("Unauthorized", { status: 401 })
+
 	const { searchParams } = new URL(request.url)
 
 	const imageUrl = searchParams.get("imageUrl")

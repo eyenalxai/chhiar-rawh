@@ -1,3 +1,4 @@
+import { auth } from "@/lib/auth"
 import { db, urlMetadatas } from "@/lib/schema"
 import { eq } from "drizzle-orm"
 import { NextResponse } from "next/server"
@@ -11,6 +12,10 @@ type OgsMetadataResult = {
 }
 
 export const GET = async (request: Request) => {
+	const session = await auth()
+
+	if (!session) return new NextResponse("Unauthorized", { status: 401 })
+
 	const { searchParams } = new URL(request.url)
 
 	const url = searchParams.get("url")

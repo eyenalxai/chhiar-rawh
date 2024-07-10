@@ -1,8 +1,8 @@
 import { ExternalLinkPreview } from "@/components/post/external-link-preview"
 import { PostImage } from "@/components/post/post-image"
 import { getImageUrlFromPost } from "@/lib/reddit-media"
+import { cn } from "@/lib/utils"
 import type { RedditPostData } from "@/types/reddit"
-import Markdown from "react-markdown"
 
 type PostBodyProps = {
 	data: RedditPostData
@@ -23,7 +23,5 @@ export const PostBody = ({ data }: PostBodyProps) => {
 
 	if (imageUrl) return <PostImage imageUrl={imageUrl} title={data.title} />
 
-	if (data.selftext) return <Markdown>{data.selftext}</Markdown>
-
-	return <Markdown>{data.selftext}</Markdown>
+	return <p className={cn("text-sm", "line-clamp-3")}>{data.selftext}</p>
 }

@@ -1,20 +1,14 @@
-"use client"
-
 import { Card } from "@/components/ui/card"
-import { Skeleton } from "@/components/ui/skeleton"
-import type { urlMetadatas } from "@/lib/schema"
 import { cn } from "@/lib/utils"
-import type { UrlMetadataResponse } from "@/types/url-metadata"
-import { useQuery } from "@tanstack/react-query"
 import Image from "next/image"
 
-type YikesProps = {
+type LinkPreviewCardProps = {
 	url: string
 	title: string
 	image?: string | null
 }
 
-export const Yikes = ({ url, title, image }: YikesProps) => {
+export const LinkPreviewCard = ({ url, title, image }: LinkPreviewCardProps) => {
 	return (
 		<a href={url} rel={"noopener noreferrer"} target="_blank" className={cn("w-full", "no-underline")}>
 			<Card className={cn("w-full", "overflow-hidden", "rounded-lg", "h-72")}>
@@ -57,28 +51,4 @@ export const Yikes = ({ url, title, image }: YikesProps) => {
 			</Card>
 		</a>
 	)
-}
-
-type PostLinkProps = {
-	url: string
-	title: string
-}
-
-export const PostLink = ({ url, title }: PostLinkProps) => {
-	const { data, isLoading, error } = useQuery({
-		queryKey: ["url-metadata", { url }],
-		queryFn: async () =>
-			await fetch(`/api/url-metadata?url=${url}`).then(async (res) => {
-				if (!res.ok) throw new Error(`Failed to fetch metadata. Status: ${res.status}`)
-				const json = (await res.json()) as unknown as UrlMetadataResponse
-				if ("error" in json && json.error) throw new Error(json.error)
-				return json as unknown as typeof urlMetadatas.$inferSelect
-			})
-	})
-
-	if (!data) return <Skeleton className={cn("w-full", "h-72", "rounded-lg", "animate-pulse")} />
-
-	if (error) return <Yikes url={url} title={title} />
-
-	return <Yikes url={data.url} title={data.title} image={data.image} />
 }

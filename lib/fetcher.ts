@@ -1,7 +1,7 @@
 type FetcherProps = {
 	endpoint: string
 	method: "GET" | "POST" | "PATCH"
-	accessToken: string
+	accessToken?: string
 	body?: Record<string, unknown>
 }
 
@@ -12,7 +12,7 @@ export const fetcher = async <T>({ endpoint, method, accessToken, body }: Fetche
 		method,
 		headers: {
 			"Content-Type": "application/json",
-			Authorization: `Bearer ${accessToken}`
+			...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {})
 		},
 		body: body !== undefined ? JSON.stringify(body) : undefined,
 		cache: "no-store"

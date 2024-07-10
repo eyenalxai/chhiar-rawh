@@ -9,7 +9,7 @@ type PostProps = {
 
 export const Post = ({ data }: PostProps) => {
 	return (
-		<Card className={cn("w-full", "max-w-md", "p-2")}>
+		<Card className={cn("w-full", "max-w-md", "p-4")}>
 			<div className={cn("flex", "flex-col", "justify-center", "items-start", "gap-1")}>
 				<h3 className={cn("font-semibold", "text-lg", "leading-5")}>{data.title}</h3>
 				<div className={cn("flex", "flex-row", "gap-1", "items-center")}>

@@ -1,4 +1,4 @@
-import { Post } from "@/components/post"
+import { Post } from "@/components/post/post"
 import { auth } from "@/lib/auth"
 import { getHotPosts } from "@/lib/fetch/posts"
 import { cn } from "@/lib/utils"

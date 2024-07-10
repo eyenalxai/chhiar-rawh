@@ -1,4 +1,4 @@
-import { PostImage } from "@/components/post-image"
+import { PostImage } from "@/components/post/post-image"
 import { Card } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 import type { RedditPostData } from "@/types/reddit"

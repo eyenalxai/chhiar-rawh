@@ -148,7 +148,7 @@ export interface RedditPostData extends RedditApiData {
 		}[]
 		is_prediction: boolean
 	}
-	post_hint: string | "image" | undefined
+	post_hint: string | "image" | "link" | undefined
 	preview?: {
 		images: {
 			source: ImageEntry

@@ -2,12 +2,13 @@
 
 import { Post } from "@/components/post/post"
 import { getNewPostsClient } from "@/lib/fetch/client/posts"
+import { NEW_POSTS_QUERY_KEY } from "@/lib/query/keys"
 import { cn } from "@/lib/utils"
 import { useQuery } from "@tanstack/react-query"
 
 export const Posts = () => {
 	const { data: newPosts } = useQuery({
-		queryKey: ["new"],
+		queryKey: [NEW_POSTS_QUERY_KEY],
 		queryFn: () => getNewPostsClient()
 	})
 

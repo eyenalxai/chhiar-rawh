@@ -11,7 +11,7 @@ import Image from "next/image"
 type YikesProps = {
 	url: string
 	title: string
-	image: string | null
+	image?: string | null
 }
 
 export const Yikes = ({ url, title, image }: YikesProps) => {
@@ -38,7 +38,7 @@ export const Yikes = ({ url, title, image }: YikesProps) => {
 						<Image className={cn("w-full", "object-cover")} src={image} alt={title} width={512} height={512} />
 					</div>
 				) : (
-					<div className={cn("bg-primary-foreground", "h-full")} />
+					<div className={cn("bg-primary-foreground", "h-52")} />
 				)}
 				<p
 					className={cn(
@@ -61,11 +61,10 @@ export const Yikes = ({ url, title, image }: YikesProps) => {
 
 type PostLinkProps = {
 	url: string
+	title: string
 }
 
-export const PostLink = ({ url }: PostLinkProps) => {
-	const domain = new URL(url).hostname
-
+export const PostLink = ({ url, title }: PostLinkProps) => {
 	const { data, isLoading, error } = useQuery({
 		queryKey: ["url-metadata", { url }],
 		queryFn: async () =>
@@ -79,25 +78,7 @@ export const PostLink = ({ url }: PostLinkProps) => {
 
 	if (!data) return <Skeleton className={cn("w-full", "h-72", "rounded-lg", "animate-pulse")} />
 
-	if (error)
-		return (
-			<a className={cn("w-full", "no-underline")} href={url} target={"_blank"} rel={"noopener noreferrer"}>
-				<div
-					className={cn(
-						"w-full",
-						"h-48",
-						"rounded-lg",
-						["bg-blue-100", "dark:bg-blue-900"],
-						"flex",
-						"justify-start",
-						"items-end",
-						"p-2"
-					)}
-				>
-					<div className={cn("rounded-lg", "bg-blue-500", "py-1", "px-3", "text-white", "text-sm")}>{domain}</div>
-				</div>
-			</a>
-		)
+	if (error) return <Yikes url={url} title={title} />
 
-	return <Yikes url={url} title={data.title} image={data.image} />
+	return <Yikes url={data.url} title={data.title} image={data.image} />
 }

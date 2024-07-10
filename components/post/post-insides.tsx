@@ -15,7 +15,7 @@ export const PostInsides = ({ data }: PostInsidesProps) => {
 		!data.url.includes("i.redd.it") &&
 		!data.url.includes("v.redd.it")
 	)
-		return <PostLink url={data.url} />
+		return <PostLink url={data.url} title={data.title} />
 
 	if (data.url.includes("v.redd.it")) return <div>Videos are not supported yet</div>
 

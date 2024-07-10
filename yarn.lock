@@ -5674,6 +5674,7 @@ __metadata:
     postgres: "npm:^3.4.4"
     react: "npm:19.0.0-rc-378b305958-20240710"
     react-dom: "npm:19.0.0-rc-378b305958-20240710"
+    react-intersection-observer: "npm:^9.10.3"
     react-markdown: "npm:^9.0.1"
     shadcn-ui: "npm:^0.8.0"
     tailwind-merge: "npm:^2.4.0"
@@ -6371,6 +6372,19 @@ __metadata:
   peerDependencies:
     react: 19.0.0-rc-378b305958-20240710
   checksum: 10c0/6d784e132b2844c720a3a72c716604744c216a3cc59efa0f479df7c2b13450a449df392fcab69a8690e3ebf6a3264b84c3348cf0044c48397acb996e6ecd00d0
+  languageName: node
+  linkType: hard
+
+"react-intersection-observer@npm:^9.10.3":
+  version: 9.10.3
+  resolution: "react-intersection-observer@npm:9.10.3"
+  peerDependencies:
+    react: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+    react-dom: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+  peerDependenciesMeta:
+    react-dom:
+      optional: true
+  checksum: 10c0/a62f34f5a20ef42ac63782b59b25dc1b40f9c29cb58d7fde5aa24771661fc64f98be70cc8d8c5d301b5d26b4b0a3b88012a2d7d3e43caf198641938d697b2675
   languageName: node
   linkType: hard
 

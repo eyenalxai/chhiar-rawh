@@ -12,7 +12,7 @@ export default function imgProxyLoader({ src, width, quality }: ImageLoaderProps
 		endpoint: "http://192.168.1.135:8080",
 		url: src,
 		options: {
-			resizing_type: "fill",
+			resizing_type: "fit",
 			width: width,
 			gravity: {
 				type: "ce"

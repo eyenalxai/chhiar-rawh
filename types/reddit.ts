@@ -116,7 +116,7 @@ export interface RedditPostData extends RedditApiData {
 	media_metadata: {
 		[mediaId: string]: {
 			status: string
-			e: string
+			e: string | "Image"
 			m: string
 			p: AlbumEntry[]
 			s: AlbumEntry
@@ -148,7 +148,7 @@ export interface RedditPostData extends RedditApiData {
 		}[]
 		is_prediction: boolean
 	}
-	post_hint: string
+	post_hint: string | "image" | undefined
 	preview?: {
 		images: {
 			source: ImageEntry

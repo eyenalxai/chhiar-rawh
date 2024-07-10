@@ -28,7 +28,7 @@ export const Post = ({ data }: PostProps) => {
 					</div>
 					<div className={cn("flex", "flex-row", "items-center", "gap-0.5")}>
 						<ArrowDownIcon className={cn("size-4", "text-blue-500")} />
-						<span className={cn("text-sm")}>{data.downs}</span>
+						<span className={cn("text-sm")}>{Math.round(data.ups * (1 - data.upvote_ratio))}</span>
 					</div>
 				</div>
 			</div>

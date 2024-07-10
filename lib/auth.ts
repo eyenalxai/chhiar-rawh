@@ -4,13 +4,23 @@ import type { AuthToken } from "@/types/token"
 import { eq } from "drizzle-orm"
 import NextAuth from "next-auth"
 
+const buildRedditAuthUrl = (): string => {
+	const baseUrl = "https://www.reddit.com/api/v1/authorize"
+	const params = new URLSearchParams({
+		scope: "identity read",
+		duration: "permanent"
+	})
+
+	return `${baseUrl}?${params.toString()}`
+}
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
 	providers: [
 		{
 			id: "reddit",
 			name: "Reddit",
 			type: "oauth",
-			authorization: "https://www.reddit.com/api/v1/authorize?scope=identity&duration=permanent",
+			authorization: buildRedditAuthUrl(),
 			token: "https://www.reddit.com/api/v1/access_token",
 			userinfo: "https://oauth.reddit.com/api/v1/me",
 			checks: ["state"],

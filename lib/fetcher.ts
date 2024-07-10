@@ -4,12 +4,13 @@ type FetcherProps = {
 	method: "GET" | "POST" | "PATCH"
 	accessToken?: string
 	body?: Record<string, unknown>
+	queryParams?: Record<string, string>
 }
 
-export const fetcher = async <T>({ type, endpoint, method, accessToken, body }: FetcherProps) => {
+export const fetcher = async <T>({ type, endpoint, method, accessToken, body, queryParams }: FetcherProps) => {
 	const url = type === "client" ? endpoint : `https://oauth.reddit.com/${endpoint}`
 
-	return fetch(url, {
+	return fetch(queryParams ? `${url}?${new URLSearchParams(queryParams).toString()}` : url, {
 		method,
 		headers: {
 			"Content-Type": "application/json",

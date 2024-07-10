@@ -1,4 +1,5 @@
-import type { UrlMetadataResult } from "@/types/url-metadata"
+import { db, urlMetadatas } from "@/lib/schema"
+import { eq } from "drizzle-orm"
 import { NextResponse } from "next/server"
 
 type OgsMetadataResult = {
@@ -16,6 +17,10 @@ export const GET = async (request: Request) => {
 
 	if (!url) return new NextResponse("url query param is required", { status: 400 })
 
+	const [urlMetadata] = await db.select().from(urlMetadatas).where(eq(urlMetadatas.url, url))
+
+	if (urlMetadata) return NextResponse.json(urlMetadata)
+
 	const ogs = require("open-graph-scraper")
 	const options = { url: url }
 
@@ -23,9 +28,14 @@ export const GET = async (request: Request) => {
 
 	if (error) return NextResponse.json({ error: "Failed to fetch metadata" })
 
-	return NextResponse.json({
-		title: result.ogTitle,
-		url: result.ogUrl,
-		image: result.ogImage?.[0]?.url
-	} satisfies UrlMetadataResult)
+	const [newUrlMetadata] = await db
+		.insert(urlMetadatas)
+		.values({
+			url: url,
+			title: result.ogTitle,
+			image: result.ogImage?.[0]?.url
+		})
+		.returning()
+
+	return NextResponse.json(newUrlMetadata)
 }

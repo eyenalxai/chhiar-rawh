@@ -24,3 +24,9 @@ export const accounts = pgTable("account", {
 	access_token: text("access_token").notNull(),
 	expires_at: integer("expires_at").notNull()
 })
+
+export const urlMetadatas = pgTable("url_metadata", {
+	url: text("url").unique().notNull(),
+	title: text("title").notNull(),
+	image: text("image")
+})

@@ -1,6 +1,7 @@
 "use client"
 
-import type { UrlMetadataResponse, UrlMetadataResult } from "@/types/url-metadata"
+import type { urlMetadatas } from "@/lib/schema"
+import type { UrlMetadataResponse } from "@/types/url-metadata"
 import { useQuery } from "@tanstack/react-query"
 
 type PostLinkProps = {
@@ -14,7 +15,7 @@ export const PostLink = ({ url }: PostLinkProps) => {
 			await fetch(`/api/url-metadata?url=${url}`).then(async (res) => {
 				const json = (await res.json()) as unknown as UrlMetadataResponse
 				if ("error" in json && json.error) throw new Error(json.error)
-				return json as UrlMetadataResult
+				return json as unknown as typeof urlMetadatas.$inferSelect
 			})
 	})
 

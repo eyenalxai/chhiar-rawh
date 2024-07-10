@@ -16,7 +16,12 @@ export const PostImage = ({ data }: PostImageProps) => {
 
 	if (!imageUrl) return null
 
-	if (failed) return <span className={cn("text-muted-foreground")}>Failed to load the image :(</span>
+	if (failed)
+		return (
+			<span className={cn("text-muted-foreground")}>
+				Failed to load the <a href={imageUrl}>image</a> :(
+			</span>
+		)
 
 	return (
 		<div className={cn("w-full", "relative", "max-h-96", "overflow-hidden", "rounded-lg")}>

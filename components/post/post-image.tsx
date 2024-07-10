@@ -22,13 +22,23 @@ export const PostImage = ({ imageUrl, title }: PostImageProps) => {
 		)
 
 	return (
-		<div className={cn("w-full", "relative", "max-h-96", "overflow-hidden", "rounded-lg")}>
+		<div
+			className={cn(
+				"flex",
+				"justify-center",
+				"items-center",
+				"w-full",
+				"relative",
+				"max-h-96",
+				"overflow-hidden",
+				"rounded-lg"
+			)}
+		>
 			<Image
 				onError={() => {
 					console.error("Image failed to load", imageUrl)
 					setFailed(true)
 				}}
-				className={cn("w-full", "object-cover")}
 				src={imageUrl}
 				alt={title}
 				width={512}

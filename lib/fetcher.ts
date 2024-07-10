@@ -1,14 +1,15 @@
 type FetcherProps = {
+	type: "client" | "server"
 	endpoint: string
 	method: "GET" | "POST" | "PATCH"
 	accessToken?: string
 	body?: Record<string, unknown>
 }
 
-export const fetcher = async <T>({ endpoint, method, accessToken, body }: FetcherProps) => {
-	const baseUrl = "https://oauth.reddit.com"
+export const fetcher = async <T>({ type, endpoint, method, accessToken, body }: FetcherProps) => {
+	const url = type === "client" ? endpoint : `https://oauth.reddit.com/${endpoint}`
 
-	return fetch(`${baseUrl}/${endpoint}`, {
+	return fetch(url, {
 		method,
 		headers: {
 			"Content-Type": "application/json",

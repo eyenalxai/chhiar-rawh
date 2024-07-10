@@ -8,11 +8,11 @@ type ImageLoaderProps = {
 }
 
 export default function imgProxyLoader({ src, width, quality }: ImageLoaderProps): string {
-	const url = generateImageUrl({
+	return generateImageUrl({
 		endpoint: "http://192.168.1.135:8080",
 		url: src,
 		options: {
-			resizing_type: "fit",
+			resizing_type: "fill",
 			width: width,
 			gravity: {
 				type: "ce"
@@ -23,14 +23,4 @@ export default function imgProxyLoader({ src, width, quality }: ImageLoaderProps
 		salt: env.IMGPROXY_SALT,
 		key: env.IMGPROXY_KEY
 	})
-
-	console.log("width", width)
-	console.log("quality", quality)
-	console.log("src:", src)
-	console.log("signature key:", env.IMGPROXY_KEY)
-	console.log("signature salt:", env.IMGPROXY_SALT)
-	console.log("imgproxyUrl", url)
-	console.log("---")
-
-	return url
 }

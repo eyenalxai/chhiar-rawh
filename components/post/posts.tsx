@@ -13,7 +13,7 @@ type PostsProps = {
 }
 
 export const Posts = ({ type }: PostsProps) => {
-	const { ref, inView, entry } = useInView()
+	const { ref, inView } = useInView()
 
 	const queryClient = useQueryClient()
 
@@ -48,7 +48,7 @@ export const Posts = ({ type }: PostsProps) => {
 		<div className={cn("flex", "flex-col", "gap-2", "w-full", "items-center")}>
 			{postsPages.pages.map((page, pageIdx) =>
 				page.data.children.map((post, postIdx) => {
-					if (pageIdx === postsPages.pages.length - 1 && postIdx === 2) {
+					if (pageIdx === postsPages.pages.length - 1 && postIdx === page.data.children.length - 3) {
 						return <Post key={post.data.title} data={post.data} ref={ref} />
 					}
 					return <Post key={post.data.title} data={post.data} />

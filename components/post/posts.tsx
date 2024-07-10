@@ -31,8 +31,6 @@ export const Posts = ({ type }: PostsProps) => {
 		}
 	})
 
-	console.log("postsPages", postsPages)
-
 	if (!postsPages) return null
 
 	return (

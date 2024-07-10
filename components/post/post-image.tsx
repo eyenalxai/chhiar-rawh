@@ -1,18 +1,16 @@
 "use client"
 
-import { getImageUrlFromPost } from "@/lib/reddit-media"
 import { cn } from "@/lib/utils"
-import type { RedditPostData } from "@/types/reddit"
 import Image from "next/image"
 import { useState } from "react"
 
 type PostImageProps = {
-	data: RedditPostData
+	imageUrl: string
+	title: string
 }
 
-export const PostImage = ({ data }: PostImageProps) => {
+export const PostImage = ({ imageUrl, title }: PostImageProps) => {
 	const [failed, setFailed] = useState(false)
-	const imageUrl = getImageUrlFromPost(data)
 
 	if (!imageUrl) return null
 
@@ -32,7 +30,7 @@ export const PostImage = ({ data }: PostImageProps) => {
 				}}
 				className={cn("w-full", "object-cover")}
 				src={imageUrl}
-				alt={data.title}
+				alt={title}
 				width={512}
 				height={512}
 			/>

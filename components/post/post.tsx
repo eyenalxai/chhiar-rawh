@@ -1,9 +1,8 @@
-import { PostImage } from "@/components/post/post-image"
+import { PostInsides } from "@/components/post/post-insides"
 import { Card } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 import type { RedditPostData } from "@/types/reddit"
 import { ArrowDownIcon, ArrowUpIcon, MessageCircleIcon } from "lucide-react"
-import Markdown from "react-markdown"
 
 type PostContentProps = {
 	data: RedditPostData
@@ -12,11 +11,8 @@ type PostContentProps = {
 export const PostContent = ({ data }: PostContentProps) => {
 	return (
 		<div className={cn("flex", "flex-col", "justify-center", "items-start", "gap-1")}>
-			<div className={cn("w-full", "flex", "flex-col", "items-start", "justify-between", "gap-2")}>
-				<h3>{data.title}</h3>
-				<PostImage data={data} />
-			</div>
-			<Markdown>{data.selftext}</Markdown>
+			<h3>{data.title}</h3>
+			<PostInsides data={data} />
 			<div className={cn("flex", "flex-row", "gap-1", "items-center")}>
 				<span className={cn("font-semibold", "text-sm")}>u/{data.author}</span>
 				<span className={cn("text-sm")}>at</span>

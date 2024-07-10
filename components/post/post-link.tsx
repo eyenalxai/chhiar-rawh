@@ -50,7 +50,7 @@ export const PostLink = ({ url }: PostLinkProps) => {
 
 	if (data.image) {
 		return (
-			<a href={data.url} className={cn("w-full")}>
+			<a href={data.url} rel={"noopener noreferrer"} target="_blank" className={cn("w-full")}>
 				<Card className={cn("w-full", "relative", "overflow-hidden", "rounded-lg")}>
 					<p
 						className={cn(

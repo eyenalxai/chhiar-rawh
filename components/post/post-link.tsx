@@ -8,6 +8,57 @@ import type { UrlMetadataResponse } from "@/types/url-metadata"
 import { useQuery } from "@tanstack/react-query"
 import Image from "next/image"
 
+type YikesProps = {
+	url: string
+	title: string
+	image: string | null
+}
+
+export const Yikes = ({ url, title, image }: YikesProps) => {
+	return (
+		<a href={url} rel={"noopener noreferrer"} target="_blank" className={cn("w-full", "no-underline")}>
+			<Card className={cn("w-full", "overflow-hidden", "rounded-lg", "h-72")}>
+				<p
+					className={cn(
+						"bg-primary",
+						"p-2",
+						"w-full",
+						"text-center",
+						"text-primary-foreground",
+						"text-ellipsis",
+						"overflow-hidden",
+						"text-nowrap",
+						"font-semibold"
+					)}
+				>
+					{title}
+				</p>
+				{image ? (
+					<div className={cn("w-full", "relative", "h-52", "overflow-hidden")}>
+						<Image className={cn("w-full", "object-cover")} src={image} alt={title} width={512} height={512} />
+					</div>
+				) : (
+					<div className={cn("bg-primary-foreground", "h-full")} />
+				)}
+				<p
+					className={cn(
+						"p-3",
+						"w-full",
+						"h-full",
+						"bg-primary-foreground",
+						"text-primary",
+						"font-semibold",
+						"text-xs",
+						"text-left"
+					)}
+				>
+					{new URL(url).hostname}
+				</p>
+			</Card>
+		</a>
+	)
+}
+
 type PostLinkProps = {
 	url: string
 }
@@ -25,6 +76,8 @@ export const PostLink = ({ url }: PostLinkProps) => {
 				return json as unknown as typeof urlMetadatas.$inferSelect
 			})
 	})
+
+	if (!data) return <Skeleton className={cn("w-full", "h-72", "rounded-lg", "animate-pulse")} />
 
 	if (error)
 		return (
@@ -46,52 +99,5 @@ export const PostLink = ({ url }: PostLinkProps) => {
 			</a>
 		)
 
-	if (!data) return <Skeleton className={cn("w-full", "h-48", "rounded-lg", "animate-pulse")} />
-
-	if (data.image) {
-		return (
-			<a href={data.url} rel={"noopener noreferrer"} target="_blank" className={cn("w-full")}>
-				<Card className={cn("w-full", "relative", "overflow-hidden", "rounded-lg")}>
-					<p
-						className={cn(
-							"bg-primary",
-							"p-2",
-							"w-full",
-							"text-center",
-							"text-primary-foreground",
-							"text-ellipsis",
-							"overflow-hidden",
-							"text-nowrap",
-							"font-semibold"
-						)}
-					>
-						{data.title}
-					</p>
-					<Image className={cn("w-full", "object-cover")} src={data.image} alt={data.title} width={512} height={512} />
-					<p className={cn("p-2", "w-full", "bg-primary-foreground", "text-primary", "font-semibold", "text-xs")}>
-						{new URL(data.url).hostname}
-					</p>
-				</Card>
-			</a>
-		)
-	}
-
-	return (
-		<a className={cn("w-full", "no-underline")} href={url} target={"_blank"} rel={"noopener noreferrer"}>
-			<div
-				className={cn(
-					"w-full",
-					"h-48",
-					"rounded-lg",
-					["bg-blue-100", "dark:bg-blue-900"],
-					"flex",
-					"justify-start",
-					"items-end",
-					"p-2"
-				)}
-			>
-				<div className={cn("rounded-lg", "bg-blue-500", "py-1", "px-3", "text-white", "text-sm")}>{domain}</div>
-			</div>
-		</a>
-	)
+	return <Yikes url={url} title={data.title} image={data.image} />
 }

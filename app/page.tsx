@@ -1,6 +1,6 @@
 import { Post } from "@/components/post/post"
 import { auth } from "@/lib/auth"
-import { getHotPosts } from "@/lib/fetch/posts"
+import { getNewPosts } from "@/lib/fetch/posts"
 import { cn } from "@/lib/utils"
 import { redirect } from "next/navigation"
 
@@ -9,7 +9,7 @@ export default async function Page() {
 
 	if (!session) return redirect("/sign-in")
 
-	const hotPosts = await getHotPosts({ accessToken: session.accessToken })
+	const hotPosts = await getNewPosts({ accessToken: session.accessToken })
 
 	return (
 		<div className={cn("flex", "flex-col", "gap-2", "w-full", "items-center", "mt-12")}>

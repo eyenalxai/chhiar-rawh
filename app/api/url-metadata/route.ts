@@ -22,20 +22,22 @@ export const GET = async (request: Request) => {
 	if (urlMetadata) return NextResponse.json(urlMetadata)
 
 	const ogs = require("open-graph-scraper")
-	const options = { url: url }
+	try {
+		const { error, result }: { result: OgsMetadataResult; error: boolean } = await ogs({ url: url })
 
-	const { error, result }: { result: OgsMetadataResult; error: boolean } = await ogs(options)
+		if (error) return NextResponse.json({ error: "Failed to fetch metadata" })
 
-	if (error) return NextResponse.json({ error: "Failed to fetch metadata" })
+		const [newUrlMetadata] = await db
+			.insert(urlMetadatas)
+			.values({
+				url: url,
+				title: result.ogTitle,
+				image: result.ogImage?.[0]?.url
+			})
+			.returning()
 
-	const [newUrlMetadata] = await db
-		.insert(urlMetadatas)
-		.values({
-			url: url,
-			title: result.ogTitle,
-			image: result.ogImage?.[0]?.url
-		})
-		.returning()
-
-	return NextResponse.json(newUrlMetadata)
+		return NextResponse.json(newUrlMetadata)
+	} catch (e) {
+		return NextResponse.json({ error: "Failed to fetch metadata" })
+	}
 }

@@ -5,9 +5,9 @@ type GetHotPostsProps = {
 	accessToken: string
 }
 
-export const getNewPosts = ({ accessToken }: GetHotPostsProps) => {
+export const getNewPostsClient = ({ accessToken }: GetHotPostsProps) => {
 	return fetcher<RedditListingObj<RedditPostObj>>({
-		endpoint: "new",
+		endpoint: "/api/posts/new",
 		method: "GET",
 		accessToken: accessToken
 	})

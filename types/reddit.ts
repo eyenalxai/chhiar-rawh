@@ -59,6 +59,8 @@ export interface RedditListing<T> extends RedditApiData {
 	after: string
 }
 
+export type Thumbnail = "self" | "spoiler" | "default" | "nsfw" | string
+
 export interface RedditPostData extends RedditApiData {
 	all_awardings: RedditAward[]
 	allow_live_comments: boolean
@@ -201,7 +203,7 @@ export interface RedditPostData extends RedditApiData {
 	suggested_sort: string | null
 	thumbnail_height: number
 	thumbnail_width: number
-	thumbnail: string
+	thumbnail: Thumbnail
 	title: string
 	total_awards_received: number
 	ups: number

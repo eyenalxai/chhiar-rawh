@@ -1,5 +1,6 @@
 "use client"
 
+import { Card } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 import type { urlMetadatas } from "@/lib/schema"
 import { cn } from "@/lib/utils"
@@ -49,10 +50,29 @@ export const PostLink = ({ url }: PostLinkProps) => {
 
 	if (data.image) {
 		return (
-			<div className={cn("w-full", "relative", "max-h-48", "overflow-hidden", "rounded-lg")}>
-				<div className={cn("text-red-500")}>{data.title}</div>
-				<Image className={cn("w-full", "object-cover")} src={data.image} alt={data.title} width={512} height={512} />
-			</div>
+			<a href={data.url} className={cn("w-full")}>
+				<Card className={cn("w-full", "relative", "overflow-hidden", "rounded-lg")}>
+					<p
+						className={cn(
+							"bg-primary",
+							"p-2",
+							"w-full",
+							"text-center",
+							"text-primary-foreground",
+							"text-ellipsis",
+							"overflow-hidden",
+							"text-nowrap",
+							"font-semibold"
+						)}
+					>
+						{data.title}
+					</p>
+					<Image className={cn("w-full", "object-cover")} src={data.image} alt={data.title} width={512} height={512} />
+					<p className={cn("p-2", "w-full", "bg-primary-foreground", "text-primary", "font-semibold", "text-xs")}>
+						{new URL(data.url).hostname}
+					</p>
+				</Card>
+			</a>
 		)
 	}
 

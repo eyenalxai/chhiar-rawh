@@ -14,7 +14,7 @@ export default async function Page({ params }: { params: { type: string } }) {
 
 	const type = params.type as PostsType
 
-	if (type !== "hot" && type !== "new" && type !== "top" && type !== "rising") redirect("/hot")
+	if (type !== "hot" && type !== "new" && type !== "best" && type !== "top" && type !== "rising") redirect("/hot")
 
 	await queryClient.prefetchQuery({
 		queryKey: [type],

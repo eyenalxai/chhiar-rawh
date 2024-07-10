@@ -10,7 +10,7 @@ export const GET = async (request: Request, { params }: { params: { type: string
 
 	const type = params.type as PostsType
 
-	if (type !== "hot" && type !== "new" && type !== "top" && type !== "rising")
+	if (type !== "hot" && type !== "new" && type !== "best" && type !== "top" && type !== "rising")
 		return new NextResponse("Not Found", { status: 404 })
 
 	const { searchParams } = new URL(request.url)

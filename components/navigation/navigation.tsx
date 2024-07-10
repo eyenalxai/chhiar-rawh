@@ -8,9 +8,22 @@ export const Navigation = () => {
 	const pathname = usePathname()
 
 	return (
-		<div className={cn("fixed", "w-full", "flex", "justify-start", "p-2", "border", "backdrop-blur-xl", "z-50")}>
+		<div
+			className={cn(
+				"fixed",
+				"w-full",
+				"flex",
+				"justify-start",
+				"p-2",
+				"border",
+				"backdrop-blur-xl",
+				"z-50",
+				"overflow-x-scroll"
+			)}
+		>
 			<div className={cn("flex", "flex-row", "gap-2")}>
 				<NavigationButton path={"/hot"} text={"Hot"} isActive={pathname === "/hot"} />
+				<NavigationButton path={"/best"} text={"Best"} isActive={pathname === "/best"} />
 				<NavigationButton path={"/new"} text={"New"} isActive={pathname === "/new"} />
 				<NavigationButton path={"/top"} text={"Top"} isActive={pathname === "/top"} />
 				<NavigationButton path={"/rising"} text={"Rising"} isActive={pathname === "/rising"} />

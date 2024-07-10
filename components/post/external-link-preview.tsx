@@ -24,9 +24,9 @@ export const ExternalLinkPreview = ({ url, title }: ExternalLinkPreviewProps) =>
 			})
 	})
 
-	if (!data) return <Skeleton className={cn("w-full", "h-72", "rounded-lg", "animate-pulse")} />
+	if (isLoading) return <Skeleton className={cn("w-full", "h-72", "rounded-lg", "animate-pulse")} />
 
-	if (error) return <LinkPreviewCard url={url} title={title} />
+	if (error || !data) return <LinkPreviewCard url={url} title={title} />
 
 	return <LinkPreviewCard url={data.url} title={data.title} image={data.image} />
 }

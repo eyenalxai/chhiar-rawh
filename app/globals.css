@@ -65,7 +65,7 @@
     --destructive-foreground: 0 85.7% 97.3%;
  
     --ring: 217.2 32.6% 17.5%;
-  }
+  }   
 }
  
 @layer base {
@@ -74,5 +74,17 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  a {
+    @apply text-secondary-foreground underline;
+  }
+  h1 {
+    @apply text-2xl font-semibold leading-7;
+  }
+  h2 {
+    @apply text-xl font-semibold leading-6;
+  }
+  h3 {
+    @apply text-lg font-semibold leading-5;
   }
 }

@@ -1,14 +1,15 @@
 import { fetcher } from "@/lib/fetcher"
-import type { RedditListingObj, RedditPostObj } from "@/types/reddit"
+import type { PostsType, RedditListingObj, RedditPostObj } from "@/types/reddit"
 
 type GetHotPostsProps = {
 	accessToken: string
+	type: PostsType
 }
 
-export const getNewPostsServer = ({ accessToken }: GetHotPostsProps) => {
+export const getPostsServer = ({ accessToken, type }: GetHotPostsProps) => {
 	return fetcher<RedditListingObj<RedditPostObj>>({
 		type: "server",
-		endpoint: "new",
+		endpoint: type,
 		method: "GET",
 		accessToken: accessToken
 	})

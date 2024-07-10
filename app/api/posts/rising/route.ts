@@ -7,7 +7,7 @@ export const GET = async () => {
 
 	if (!session) return new NextResponse("Unauthorized", { status: 401 })
 
-	const posts = await getPostsServer({ accessToken: session.accessToken, type: "new" })
+	const posts = await getPostsServer({ accessToken: session.accessToken, type: "rising" })
 
 	return NextResponse.json(posts)
 }

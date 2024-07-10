@@ -1,21 +1,25 @@
 "use client"
 
 import { Post } from "@/components/post/post"
-import { getNewPostsClient } from "@/lib/fetch/client/posts"
-import { NEW_POSTS_QUERY_KEY } from "@/lib/query/keys"
+import { getPostsClient } from "@/lib/fetch/client/posts"
 import { cn } from "@/lib/utils"
+import type { PostsType } from "@/types/reddit"
 import { useQuery } from "@tanstack/react-query"
 
-export const Posts = () => {
+type PostsProps = {
+	type: PostsType
+}
+
+export const Posts = ({ type }: PostsProps) => {
 	const { data: newPosts } = useQuery({
-		queryKey: [NEW_POSTS_QUERY_KEY],
-		queryFn: () => getNewPostsClient()
+		queryKey: [type],
+		queryFn: () => getPostsClient({ type })
 	})
 
 	if (!newPosts) return null
 
 	return (
-		<div className={cn("flex", "flex-col", "gap-2", "w-full", "items-center", "mt-12")}>
+		<div className={cn("flex", "flex-col", "gap-2", "w-full", "items-center")}>
 			{newPosts.data.children.map((post) => (
 				<Post key={post.data.title} data={post.data} />
 			))}

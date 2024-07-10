@@ -60,6 +60,7 @@ export interface RedditListing<T> extends RedditApiData {
 }
 
 export type Thumbnail = "self" | "spoiler" | "default" | "nsfw" | string
+export type PostsType = "hot" | "new" | "top" | "rising"
 
 export interface RedditPostData extends RedditApiData {
 	all_awardings: RedditAward[]

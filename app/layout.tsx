@@ -1,4 +1,5 @@
 import "./globals.css"
+import { Navigation } from "@/components/navigation/navigation"
 import { Providers } from "@/components/providers"
 import { fontSans } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
@@ -34,7 +35,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 		<html lang="en" suppressHydrationWarning>
 			<body className={cn("font-sans", "antialiased", fontSans.className)}>
 				<Providers attribute="class" defaultTheme="system" enableSystem>
-					<main className={cn("p-2")}>{children}</main>
+					<Navigation />
+					<main className={cn("px-2", "py-20")}>{children}</main>
 				</Providers>
 			</body>
 		</html>

@@ -11,16 +11,16 @@ type PostsProps = {
 }
 
 export const Posts = ({ type }: PostsProps) => {
-	const { data: newPosts } = useQuery({
+	const { data: posts } = useQuery({
 		queryKey: [type],
 		queryFn: () => getPostsClient({ type })
 	})
 
-	if (!newPosts) return null
+	if (!posts) return null
 
 	return (
 		<div className={cn("flex", "flex-col", "gap-2", "w-full", "items-center")}>
-			{newPosts.data.children.map((post) => (
+			{posts.data.children.map((post) => (
 				<Post key={post.data.title} data={post.data} />
 			))}
 		</div>

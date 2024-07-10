@@ -29,7 +29,7 @@ export const LinkPreviewCard = ({ url, title, image }: LinkPreviewCardProps) => 
 				</p>
 				{image ? (
 					<div className={cn("w-full", "relative", "h-52", "overflow-hidden")}>
-						<Image className={cn("w-full", "object-cover")} src={image} alt={title} width={512} height={512} />
+						<Image priority className={cn("w-full", "object-cover")} src={image} alt={title} width={512} height={512} />
 					</div>
 				) : (
 					<div className={cn("bg-primary-foreground", "h-52")} />

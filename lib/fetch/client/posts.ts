@@ -1,15 +1,10 @@
 import { fetcher } from "@/lib/fetcher"
 import type { RedditListingObj, RedditPostObj } from "@/types/reddit"
 
-type GetHotPostsProps = {
-	accessToken: string
-}
-
-export const getNewPostsClient = ({ accessToken }: GetHotPostsProps) => {
+export const getNewPostsClient = () => {
 	return fetcher<RedditListingObj<RedditPostObj>>({
 		type: "client",
 		endpoint: "api/posts/new",
-		method: "GET",
-		accessToken: accessToken
+		method: "GET"
 	})
 }

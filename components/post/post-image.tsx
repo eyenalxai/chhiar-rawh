@@ -35,6 +35,7 @@ export const PostImage = ({ imageUrl, title }: PostImageProps) => {
 			)}
 		>
 			<Image
+				priority
 				onError={() => {
 					console.error("Image failed to load", imageUrl)
 					setFailed(true)

@@ -6,14 +6,12 @@ import { cn } from "@/lib/utils"
 import type { UrlMetadataResponse } from "@/types/url-metadata"
 import { useQuery } from "@tanstack/react-query"
 import Image from "next/image"
-import { useState } from "react"
 
 type PostLinkProps = {
 	url: string
 }
 
 export const PostLink = ({ url }: PostLinkProps) => {
-	const [failed, setFailed] = useState(false)
 	const domain = new URL(url).hostname
 
 	const { data, isLoading, error } = useQuery({
@@ -27,7 +25,7 @@ export const PostLink = ({ url }: PostLinkProps) => {
 			})
 	})
 
-	if (error || failed)
+	if (error)
 		return (
 			<a className={cn("w-full", "no-underline")} href={url} target={"_blank"} rel={"noopener noreferrer"}>
 				<div
@@ -53,17 +51,7 @@ export const PostLink = ({ url }: PostLinkProps) => {
 		return (
 			<div className={cn("w-full", "relative", "max-h-48", "overflow-hidden", "rounded-lg")}>
 				<div className={cn("text-red-500")}>{data.title}</div>
-				<Image
-					onError={() => {
-						console.error("Image failed to load", data.image)
-						setFailed(true)
-					}}
-					className={cn("w-full", "object-cover")}
-					src={data.image}
-					alt={data.image}
-					width={512}
-					height={512}
-				/>
+				<Image className={cn("w-full", "object-cover")} src={data.image} alt={data.title} width={512} height={512} />
 			</div>
 		)
 	}

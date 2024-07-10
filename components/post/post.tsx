@@ -12,7 +12,9 @@ export const PostContent = ({ data }: PostContentProps) => {
 	return (
 		<div className={cn("flex", "flex-col", "justify-center", "items-start", "gap-1")}>
 			<h3>{data.title}</h3>
-			<PostInsides data={data} />
+			<div className={cn("w-full", "my-1")}>
+				<PostInsides data={data} />
+			</div>
 			<div className={cn("flex", "flex-row", "gap-1", "items-center")}>
 				<span className={cn("font-semibold", "text-sm")}>u/{data.author}</span>
 				<span className={cn("text-sm")}>at</span>

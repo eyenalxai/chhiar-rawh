@@ -9,11 +9,21 @@ type PostInsidesProps = {
 }
 
 export const PostInsides = ({ data }: PostInsidesProps) => {
+	if (
+		data.url &&
+		!data.url.includes("reddit.com") &&
+		!data.url.includes("i.redd.it") &&
+		!data.url.includes("v.redd.it")
+	)
+		return <PostLink url={data.url} />
+
+	if (data.url.includes("v.redd.it")) return <div>Videos are not supported yet</div>
+
 	const imageUrl = getImageUrlFromPost(data)
 
 	if (imageUrl) return <PostImage imageUrl={imageUrl} title={data.title} />
 
 	if (data.selftext) return <Markdown>{data.selftext}</Markdown>
 
-	return <PostLink url={data.url} />
+	return <Markdown>{data.selftext}</Markdown>
 }

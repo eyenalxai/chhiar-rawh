@@ -16,9 +16,9 @@ export const PostContent = ({ data }: PostContentProps) => {
 				<PostInsides data={data} />
 			</div>
 			<div className={cn("flex", "flex-row", "gap-1", "items-center")}>
-				<span className={cn("font-semibold", "text-sm")}>u/{data.author}</span>
+				<span className={cn("text-sm")}>u/{data.author}</span>
 				<span className={cn("text-sm")}>at</span>
-				<span className={cn("text-sm")}>r/{data.subreddit}</span>
+				<span className={cn("font-semibold", "text-sm")}>r/{data.subreddit}</span>
 			</div>
 			<div className={cn("flex", "flex-row", "items-center", "gap-2")}>
 				<div className={cn("flex", "flex-row", "items-center", "gap-0.5")}>

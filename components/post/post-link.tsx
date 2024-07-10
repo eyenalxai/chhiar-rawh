@@ -1,14 +1,21 @@
 "use client"
 
+import { Skeleton } from "@/components/ui/skeleton"
 import type { urlMetadatas } from "@/lib/schema"
+import { cn } from "@/lib/utils"
 import type { UrlMetadataResponse } from "@/types/url-metadata"
 import { useQuery } from "@tanstack/react-query"
+import Image from "next/image"
+import { useState } from "react"
 
 type PostLinkProps = {
 	url: string
 }
 
 export const PostLink = ({ url }: PostLinkProps) => {
+	const [failed, setFailed] = useState(false)
+	const domain = new URL(url).hostname
+
 	const { data, isLoading, error } = useQuery({
 		queryKey: ["url-metadata", { url }],
 		queryFn: async () =>
@@ -20,13 +27,63 @@ export const PostLink = ({ url }: PostLinkProps) => {
 			})
 	})
 
-	if (error) return <div>{error.message}</div>
+	if (error || failed)
+		return (
+			<a className={cn("w-full", "no-underline")} href={url} target={"_blank"} rel={"noopener noreferrer"}>
+				<div
+					className={cn(
+						"w-full",
+						"h-48",
+						"rounded-lg",
+						["bg-blue-100", "dark:bg-blue-900"],
+						"flex",
+						"justify-start",
+						"items-end",
+						"p-2"
+					)}
+				>
+					<div className={cn("rounded-lg", "bg-blue-500", "py-1", "px-3", "text-white", "text-sm")}>{domain}</div>
+				</div>
+			</a>
+		)
 
-	if (!data) return <div>Loading...</div>
+	if (!data) return <Skeleton className={cn("w-full", "h-48", "rounded-lg", "animate-pulse")} />
+
+	if (data.image) {
+		return (
+			<div className={cn("w-full", "relative", "max-h-48", "overflow-hidden", "rounded-lg")}>
+				<div className={cn("text-red-500")}>{data.title}</div>
+				<Image
+					onError={() => {
+						console.error("Image failed to load", data.image)
+						setFailed(true)
+					}}
+					className={cn("w-full", "object-cover")}
+					src={data.image}
+					alt={data.image}
+					width={512}
+					height={512}
+				/>
+			</div>
+		)
+	}
 
 	return (
-		<div>
-			{data.title} {data.url}
-		</div>
+		<a className={cn("w-full", "no-underline")} href={url} target={"_blank"} rel={"noopener noreferrer"}>
+			<div
+				className={cn(
+					"w-full",
+					"h-48",
+					"rounded-lg",
+					["bg-blue-100", "dark:bg-blue-900"],
+					"flex",
+					"justify-start",
+					"items-end",
+					"p-2"
+				)}
+			>
+				<div className={cn("rounded-lg", "bg-blue-500", "py-1", "px-3", "text-white", "text-sm")}>{domain}</div>
+			</div>
+		</a>
 	)
 }
